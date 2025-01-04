@@ -11,13 +11,23 @@ const CAMBIOS=[
 CAMBIOS.map(valor => select.insertAdjacentHTML("beforeend",`<option value="${valor.elCambio}">${valor.moneda}</option>`));
 modificarCambio();
 document.querySelector("#euros").addEventListener("keyup", cambio1);
+document.querySelector("#divisa").addEventListener("keyup",cambio2);
 select.addEventListener("change", modificarCambio)
 
 function cambio1() {
     let escrito =Number(document.querySelector("#euros").value);
-    let resultado= escrito*cambio;
+    let resultado= decimales(escrito*cambio);
     document.querySelector("#divisa").value=resultado;
 }
+function cambio2() {
+    let escrito = Number(document.querySelector("#divisa").value);
+    let resultado = decimales(escrito/cambio);
+    document.querySelector("#euros").value=resultado;
+}
+function decimales(cantidad) {
+    return Number(cantidad.toFixed(2))
+}
+
 function modificarCambio() {
     cambio = select.value;
     const INDICE = select.selectedIndex;
