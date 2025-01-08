@@ -1,6 +1,7 @@
 let select = document.querySelector("select");
 let cambio;
 let tipoCambio;
+let donacion=0;
 
 const CAMBIOS=[
     {moneda:"Dólares USA",elCambio:1.06},
@@ -11,9 +12,20 @@ const CAMBIOS=[
 ]
 CAMBIOS.map(valor => select.insertAdjacentHTML("beforeend",`<option value="${valor.elCambio}">${valor.moneda}</option>`));
 modificarCambio();
+actualizarDonaciones()
 document.querySelector("#euros").addEventListener("keyup", cambio1);
 document.querySelector("#divisa").addEventListener("keyup",cambio2);
 select.addEventListener("change", recalcular);
+document.querySelector("#donar").addEventListener("click", donar);
+
+function donar() {
+    donacion += decimales(Number(document.querySelector("#euros").value)*0.5);
+    actualizarDonaciones();
+}
+
+function actualizarDonaciones() {
+    document.querySelector("#donacion").value=donacion;
+}
 
 function recalcular() {
     modificarCambio();
