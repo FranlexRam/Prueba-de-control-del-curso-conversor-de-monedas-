@@ -19,8 +19,9 @@ select.addEventListener("change", recalcular);
 document.querySelector("#donar").addEventListener("click", donar);
 
 function donar() {
-    donacion += decimales(Number(document.querySelector("#euros").value)*0.5);
+    donacion = decimales(donacion+decimales(Number(document.querySelector("#euros").value)*0.5));
     actualizarDonaciones();
+    limpiarInputs();
 }
 
 function actualizarDonaciones() {
@@ -55,4 +56,10 @@ function modificarCambio() {
     const INDICE = select.selectedIndex;
     const MONEDA = select[INDICE].text.toLowerCase();
     document.querySelector("#cambio").innerHTML=`1€ es ${cambio} ${MONEDA}`;
+}
+
+function limpiarInputs() {
+    document.querySelector("#euros").value="";
+    document.querySelector("#divisa").value="";
+    document.querySelector("#euros").focus();
 }
